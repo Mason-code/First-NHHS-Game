@@ -1,8 +1,6 @@
 # Ignore build directory
 build/
 
-# Ignore library binary files
-libs/SFML/lib/*
 
 # Ignore Visual Studio project files
 *.vcxproj
@@ -11,9 +9,3 @@ libs/SFML/lib/*
 # Ignore MacOS generated files
 .DS_Store
 
-# Ignore compiled object files and executables
-*.o
-*.exe
-*.dll
-*.so
-*.out

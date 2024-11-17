@@ -5,42 +5,40 @@ project(FirstNHHSGame)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# SFML setup
+# OS-specific SFML setup
 if(WIN32)
-    set(SFML_DIR "${CMAKE_SOURCE_DIR}/libs/SFML/lib/cmake/SFML")  # Adjust path to SFML
-    find_package(SFML COMPONENTS system window graphics REQUIRED)
-elseif(APPLE)
-    # macOS SFML setup
+    set(SFML_DIR "${CMAKE_SOURCE_DIR}/libs/windows/SFML/lib/cmake/SFML")  # Windows-specific SFML path
     find_package(SFML REQUIRED COMPONENTS system window graphics)
-elseif(UNIX)
-    # Linux SFML setup
+elseif(APPLE)
+    set(SFML_DIR "${CMAKE_SOURCE_DIR}/libs/mac/SFML/lib/cmake/SFML")  # macOS-specific SFML path
     find_package(SFML REQUIRED COMPONENTS system window graphics)
 endif()
 
 # Include directories
-include_directories(${CMAKE_SOURCE_DIR}/include)  # Includes project-specific headers in 'include/' folder
+include_directories(${CMAKE_SOURCE_DIR}/include)  # Project-specific headers in 'include/'
 
 # Source files
-file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)  # Recursively gather all .cpp files in 'src/'
+file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 
-# Header files (ensure headers are visible in the solution explorer)
+# Header files (to show headers in IDEs like Visual Studio)
 file(GLOB_RECURSE HEADERS ${CMAKE_SOURCE_DIR}/include/*.h)
 
 # Add executable
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})  # Add both sources and headers to the executable
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
-# Link SFML
+# Link SFML libraries
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics)
 
-# Post-build steps for Windows (to copy SFML DLLs)
+# Post-build steps to copy DLLs for Windows
 if (WIN32)
-    # Ensure DLLs are copied to the output directory after build
-    file(COPY "${SFML_DIR}/../../../bin/sfml-system-2.dll" DESTINATION ${CMAKE_BINARY_DIR})
-    file(COPY "${SFML_DIR}/../../../bin/sfml-window-2.dll" DESTINATION ${CMAKE_BINARY_DIR})
-    file(COPY "${SFML_DIR}/../../../bin/sfml-graphics-2.dll" DESTINATION ${CMAKE_BINARY_DIR})
+    file(GLOB SFML_DLLS "${CMAKE_SOURCE_DIR}/libs/windows/SFML/bin/*.dll")
+    foreach(DLL ${SFML_DLLS})
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy ${DLL} $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+    endforeach()
 endif()
 
-# Optional message if SFML is not found (Windows specific)
-if (WIN32 AND NOT SFML_FOUND)
-    message(STATUS "SFML not found. Consider using vcpkg to install SFML automatically.")
+# Optional message if SFML is not found
+if(NOT SFML_FOUND)
+    message(STATUS "SFML not found. Ensure it is installed and paths are correct.")
 endif()
