@@ -4,6 +4,17 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Application");
     window.setFramerateLimit(60);
 
+
+
+
+
+
+
+
+
+
+
+
     sf::Clock deltaClock;
     while (window.isOpen()) {
         sf::Event event;
