@@ -1,18 +1,16 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Application");
+    sf::RenderWindow window(sf::VideoMode(1700, 900), "SFML Application");
     window.setFramerateLimit(60);
 
 
-
-
-
-
-
-
-
-
+    sf::Texture texture;
+    if (!texture.loadFromFile("../src/assets/Texture/TX_props.png")) {
+        return EXIT_FAILURE;
+    }
+    sf::Sprite sprite(texture);
 
 
     sf::Clock deltaClock;
@@ -25,7 +23,11 @@ int main() {
 
         // Render the SFML window
         window.clear();
+
+
+        window.draw(sprite);
         // You can add your SFML drawing code here
+
         window.display();
     }
 
