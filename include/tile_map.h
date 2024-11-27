@@ -1,5 +1,4 @@
-#ifndef TILEMAP_H
-#define TILEMAP_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -17,5 +16,3 @@ private:
     sf::VertexArray m_vertices; // Vertex array for tiles
     sf::Texture m_tileset;     // Texture for the tileset
 };
-
-#endif // TILEMAP_H
