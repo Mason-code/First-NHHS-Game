@@ -5,7 +5,7 @@
 #include "mapOne_levelOne.h"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1700, 900), "SFML Application");
+    sf::RenderWindow window(sf::VideoMode(1000, 800), "SFML Application");
     window.setFramerateLimit(60);
 
    
@@ -27,9 +27,12 @@ int main() {
 
 
 
+        window.draw(mapFloor);
+        window.draw(mapBorder);
         
 
-        window.draw(map);
+       
+
         
         
         window.display();

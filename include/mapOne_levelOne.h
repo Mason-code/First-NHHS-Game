@@ -4,11 +4,12 @@
 
 
 
-extern std::vector<int> level;
+extern std::vector<int> border;
 
-extern TileMap map;
+extern TileMap mapBorder;
 
-extern std::vector<int> level_dos;
-extern TileMap MapLayer;
+extern std::vector<int> floorR;
+
+extern TileMap mapFloor;
 
 extern void getMap();
