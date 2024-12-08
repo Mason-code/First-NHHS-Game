@@ -94,14 +94,38 @@ std::vector<int> floorR{
 
 TileMap mapFloor;
 
+
+
+std::vector<int> moving{
+    6, 7, 3, 54,   
+    12, 32, 34, 50, 
+    64, 42, 63, 58,  
+    93, 36, 24, 52
+}; // Animated tiles
+
+std::vector<int> animData{
+    1, 0, 1, 0,   // Static tile (no animation)
+    3, 0, 1, 200, // Animated tile with 3 frames, 200ms per frame
+    1, 0, 1, 0,   // Static tile
+    1, 0, 1, 0    // Static tile
+};
+
+
+TileMap anim;
+
 void getMap() {
     int heightOne = 23;
-    if (!mapBorder.load("../src/assets/Texture/TX_Tileset_Wall.png", { 32, 32 }, border.data(), nullptr, border.size() / heightOne, heightOne)) {
+    if (!mapBorder.load("../src/assets/Texture/TX_Tileset_Wall.png", { 32, 32 }, border.data(), nullptr, {}, border.size() / heightOne, heightOne)) {
         std::cout << "Failed to load map!" << std::endl;
     }
 
     int heightTwo = 23;
-    if (!mapFloor.load("../src/assets/Texture/TX_Tileset_Grass.png", { 32, 32 }, floorR.data(), nullptr, floorR.size() / heightTwo, heightTwo)) {
+    if (!mapFloor.load("../src/assets/Texture/TX_Tileset_Grass.png", { 32, 32 }, floorR.data(), nullptr, {}, floorR.size() / heightTwo, heightTwo)) {
+        std::cout << "Failed to load map!" << std::endl;
+    }
+
+    int heightTres = 4;
+    if (!anim.load("../src/assets/Texture/TX_Tileset_Grass.png", { 32, 32 }, moving.data(), nullptr, animData, moving.size() / heightTres, heightTres)) {
         std::cout << "Failed to load map!" << std::endl;
     }
 }

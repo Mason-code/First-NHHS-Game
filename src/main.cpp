@@ -15,6 +15,8 @@ int main() {
 
 
     sf::Clock deltaClock;
+    sf::Clock clock;
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -22,19 +24,25 @@ int main() {
                 window.close();
         }
 
+
+        // Update animations
+        float deltaTime = clock.restart().asSeconds(); // Get elapsed time in seconds
+
+        anim.updateAnimations(deltaTime);
+
+
+
+
+
         // Render the SFML window
         window.clear();
 
 
-
         window.draw(mapFloor);
         window.draw(mapBorder);
+        window.draw(anim);
         
 
-       
-
-        
-        
         window.display();
     }
 
