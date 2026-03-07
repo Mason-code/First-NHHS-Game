@@ -4,6 +4,15 @@
 #include "tile_map.h"
 #include "mapOne_levelOne.h"
 
+void character();
+
+void character() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        std::cout << "it works!";
+    }
+
+}
+
 int main() {
     sf::RenderWindow window(sf::VideoMode(1000, 800), "SFML Application");
     window.setFramerateLimit(60);
@@ -32,7 +41,7 @@ int main() {
 
 
 
-
+        character();
 
         // Render the SFML window
         window.clear();
@@ -48,3 +57,5 @@ int main() {
 
     return 0;
 }
+
+
